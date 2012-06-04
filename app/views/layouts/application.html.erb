@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Bootstrap App (DEMO)</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <div class="row-fluid">
+
+        <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Simple Bootstrap App (DEMO)</a>
+        <div class="container nav-collapse">
+          <ul class="nav">
+            <li class="<%= params[:controller] == 'things' ? 'active' : '' %>"><%= link_to "Things", things_path %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+        <a class="close" data-dismiss="alert">x</a>
+        <%= msg %>
+      </div>
+  <% end %>
+
+  <div class="row-fluid">
+    <%-
+        sb = File.exists?(Rails.root.join("app", "views", params[:controller], "_sidebar_#{params[:action]}.html.erb"))
+    %>
+    <div class="span<%= sb ? 8 : 12 %>">
+      <%= yield %>
+    </div>
+
+    <%- if sb %>
+        <div class="span4">
+          <div class="well sidebar-nav">
+            <%= render :partial=> "sidebar_#{params[:action]}" rescue nil %>
+          </div>
+        </div>
+    <%- end %>
+  </div>
+  <hr/>
+  <div class="span12">
+    <footer>
+    </footer>
+  </div>
+</div>
+
+</body>
+</html>

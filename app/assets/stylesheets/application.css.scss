@@ -1,0 +1,16 @@
+/*
+ *= require_self
+*/
+@import "bootstrap";
+
+body {
+  padding-top: 60px;
+}
+
+input, textarea, select, .uneditable-input {
+  width: 450px;
+}
+
+textarea {
+  height: 250px;
+}
